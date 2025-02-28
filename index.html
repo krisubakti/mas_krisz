@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Krisubakti - Crypto Innovator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Roboto+Mono:wght@300;400;700&display=swap');
+
+        /* Variabel tema gelap (default) */
+        :root[data-theme="dark"] {
+            --primary-gradient: linear-gradient(45deg, #0066ff, #6600ff);
+            --secondary-gradient: linear-gradient(135deg, #00ffb3, #00ff87);
+            --background: #0a0a1a;
+            --card-background: #111328;
+            --text-color: #e0e0ff;
+            --accent-color: #00ffb3;
+            --border-color: rgba(255,255,255,0.1);
+            --shadow-color: rgba(0,0,0,0.3);
+            --icon-color: #ffffff;
+            --card-hover-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            --header-border: 1px solid rgba(255,255,255,0.1);
+            --icon-bg: rgba(0, 255, 179, 0.1);
+            --nav-mobile-bg: rgba(10, 10, 26, 0.9);
+            --social-link-bg: rgba(17, 19, 40, 0.6);
+            --social-link-border: rgba(0, 255, 179, 0.3);
+            --hero-content-bg: rgba(10, 10, 26, 0.6);
+            --code-bg: #0a0a1a;
+            --noise-bg-1: rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%;
+            --noise-bg-2: rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06);
+            --toggle-icon: "☀️";
+            --footer-bg: rgba(17, 19, 40, 0.5);
+        }
+
+        /* Variabel tema terang */
+        :root[data-theme="light"] {
+            --primary-gradient: linear-gradient(45deg, #0066ff, #6600ff);
+            --secondary-gradient: linear-gradient(135deg, #00d89e, #00a775);
+            --background: #f0f4f8;
+            --card-background: #ffffff;
+            --text-color: #333344;
+            --accent-color: #0066ff;
+            --border-color: rgba(0,0,0,0.1);
+            --shadow-color: rgba(0,0,0,0.1);
+            --icon-color: #0066ff;
+            --card-hover-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            --header-border: 1px solid rgba(0,0,0,0.1);
+            --icon-bg: rgba(0, 102, 255, 0.1);
+            --nav-mobile-bg: rgba(240, 244, 248, 0.9);
+            --social-link-bg: rgba(255, 255, 255, 0.6);
+            --social-link-border: rgba(0, 102, 255, 0.3);
+            --hero-content-bg: rgba(255, 255, 255, 0.8);
+            --code-bg: #f8f8f8;
+            --noise-bg-1: rgba(240, 244, 248, 0) 50%, rgba(240, 244, 248, 0.1) 50%;
+            --noise-bg-2: rgba(0, 0, 255, 0.01), rgba(0, 255, 0, 0.01), rgba(255, 0, 0, 0.01);
+            --toggle-icon: "🌙";
+            --footer-bg: rgba(240, 244, 248, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) var(--background);
+            touch-action: pan-y;
+        }
+
+        html {
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--background);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            touch-action: pan-y;
+            width: 100%;
+            position: relative;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+        
+        /* Common styles for scrollbar */
+        *::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: var(--background);
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 20px;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(var(--noise-bg-1)),
+                linear-gradient(90deg, var(--noise-bg-2));
+            background-size: 100% 2px, 3px 100%;
+            z-index: 20;
+            transition: opacity 0.3s ease;
+        }
+
+        :root[data-theme="light"] .noise-overlay {
+            opacity: 0.03;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Theme Switcher */
+        .theme-switch {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            font-size: 1.5rem;
+            border: none;
+            transition: transform 0.3s;
+        }
+
+        .theme-switch:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-switch:active {
+            transform: scale(0.95);
+        }
+
+        .theme-switch::after {
+            content: var(--toggle-icon);
+        }
+
+        /* Header and Navigation */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: var(--header-border);
+            position: relative;
+            flex-wrap: wrap;
+            transition: border-color 0.3s;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            animation: pulse 2s infinite;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .logo::before {
+            content: "K";
+            position: absolute;
+            left: 0;
+            color: var(--text-color);
+            transition: color 0.3s;
+        }
+
+        /* Animasi untuk logo */
+        @keyframes pulse {
+            0% {
+                text-shadow: 0 0 5px rgba(0, 255, 179, 0.7);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(0, 255, 179, 0.9), 0 0 30px rgba(0, 102, 255, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(0, 255, 179, 0.7);
+            }
+        }
+
+        /* Desktop Navigation */
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 8px 12px;
+            border-radius: 4px;
+            background: var(--card-background);
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        .nav a:hover {
+            color: var(--accent-color);
+            background: var(--card-background);
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        /* Mobile Navigation Menu - Bottom Bar Style */
+        @media (max-width: 767px) {
+            .header {
+                padding-bottom: 20px;
+                position: relative;
+                z-index: 100;
+            }
+            
+            .logo {
+                margin-bottom: 0;
+                font-size: 2.2rem;
+                text-shadow: 0 0 10px rgba(0, 255, 179, 0.8);
+                z-index: 101;
+            }
+            
+            .nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: var(--nav-mobile-bg);
+                backdrop-filter: blur(10px);
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                padding: 15px 0;
+                border-top: 1px solid var(--accent-color);
+                box-shadow: 0 -5px 20px var(--shadow-color);
+                z-index: 100;
+            }
+            
+            .nav a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background: none;
+                border: none;
+                box-shadow: none;
+                padding: 8px 5px;
+                font-size: 0.8rem;
+                color: var(--text-color);
+                text-decoration: none;
+                transition: all 0.3s;
+                width: auto;
+            }
+            
+            .nav a::before {
+                font-family: 'Font Awesome 5 Free';
+                font-weight: 900;
+                font-size: 1.3rem;
+                margin-bottom: 5px;
+                color: var(--accent-color);
+            }
+            
+            .nav a[href="#skills"]::before {
+                content: "\f19d";
+            }
+            
+            .nav a[href="#projects"]::before {
+                content: "\f0b1";
+            }
+            
+            .nav a[href="#contributions"]::before {
+                content: "\f126";
+            }
+            
+            .nav a[href="#team"]::before {
+                content: "\f0c0";
+            }
+            
+            .nav a:hover {
+                transform: translateY(-5px);
+                color: var(--accent-color);
+                background: transparent;
+            }
+            
+            .hero {
+                padding-top: 30px;
+                padding-bottom: 80px; /* Untuk memberi ruang pada bottom navigation */
+            }
+        }
+
+        /* Desktop Navigation */
+        @media (min-width: 768px) {
+            .header {
+                flex-wrap: nowrap;
+                padding-bottom: 20px;
+            }
+            
+            .logo {
+                margin-bottom: 0;
+            }
+            
+            .nav {
+                width: auto;
+                display: flex;
+                gap: 15px;
+            }
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 80vh;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 800px;
+            background: transparent;
+            padding: 20px;
+            border-radius: 12px;
+            transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+        }
+        
+        /* Mobile Style untuk Hero */
+        @media (max-width: 767px) {
+            .hero {
+                padding-top: 40px;
+                min-height: 60vh;
+            }
+            
+            .hero-content {
+                text-align: center;
+                margin-top: 250px; /* Memberikan ruang untuk animasi Lottie */
+                background: var(--hero-content-bg);
+                backdrop-filter: blur(5px);
+                padding: 25px 15px;
+                border: 1px solid var(--accent-color);
+                border-radius: 15px;
+                box-shadow: 0 10px 30px var(--shadow-color);
+            }
+        }
+        
+        /* Desktop styling */
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+                padding-top: 0;
+            }
+            
+            .hero-content {
+                flex: 1;
+                margin-top: 0;
+                background: transparent;
+            }
+            
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .social-links {
+                justify-content: flex-start;
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-color);
+            text-shadow: 0 0 5px var(--accent-color), 0 0 10px rgba(0, 255, 179, 0.5);
+            position: relative;
+            margin-bottom: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+        
+        .hero p {
+            font-weight: 500;
+            font-size: 1.1rem;
+            max-width: 700px;
+            text-shadow: 0 0 10px var(--shadow-color);
+            letter-spacing: 0.02em;
+            position: relative;
+            z-index: 11;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.8rem;
+            transition: transform 0.3s, color 0.3s, background 0.3s, box-shadow 0.3s;
+            background: var(--social-link-bg);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid var(--social-link-border);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+            color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 255, 179, 0.4);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        /* Mobile optimasi untuk section title */
+        @media (max-width: 767px) {
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+            
+            .section-title::after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100px;
+                height: 3px;
+                background: var(--primary-gradient);
+                border-radius: 3px;
+            }
+        }
+
+        .skills-grid, .projects-grid, .contributions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            transition: gap 0.3s;
+        }
+
+        /* Mobile optimasi untuk grids */
+        @media (max-width: 767px) {
+            .skills-grid, .projects-grid, .contributions-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .skill-card, .project-card, .contribution-card {
+            background: var(--card-background);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Mobile optimasi untuk cards */
+        @media (max-width: 767px) {
+            .skill-card, .project-card, .contribution-card {
+                padding: 25px;
+                background: var(--card-background);
+                border: 1px solid var(--border-color);
+                box-shadow: 0 10px 30px var(--shadow-color);
+            }
+            
+            .skill-card:active, .project-card:active, .contribution-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        .skill-card:hover, .project-card:hover, .contribution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-hover-shadow);
+            border-color: var(--accent-color);
+        }
+
+        .skill-icon, .project-icon, .contribution-icon {
+            font-size: 3rem;
+            color: var(--icon-color);
+            margin-bottom: 20px;
+            transition: color 0.3s, background 0.3s;
+        }
+
+        /* Mobile optimasi untuk icons */
+        @media (max-width: 767px) {
+            .skill-icon, .project-icon, .contribution-icon {
+                font-size: 2.5rem;
+                margin-bottom: 15px;
+                background: var(--icon-bg);
+                width: 60px;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                border: 1px solid var(--border-color);
+                box-shadow: 0 5px 15px var(--shadow-color);
+                color: var(--accent-color);
+            }
+        }
+
+        .coin-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .crypto-coin {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            animation: float 5s infinite alternate ease-in-out;
+            opacity: 0.8;
+            z-index: 10;
+            transition: box-shadow 0.3s;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg);
+            }
+            50% { 
+                transform: translateY(-50px) rotate(360deg);
+            }
+        }
+
+        .coin {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-gradient);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float-coins 10s infinite;
+        }
+
+        @keyframes float-coins {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-50px) rotate(180deg); }
+        }
+
+        /* Style khusus hanya untuk judul Code Snippet */
+        .code-section .section-title {
+            background: none;
+            color: var(--text-color);
+            text-shadow: 0 0 5px var(--accent-color), 0 0 10px rgba(0, 255, 179, 0.3);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 2.2rem;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: var(--text-color);
+            margin-bottom: 30px;
+            position: relative;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .code-section .section-title::before {
+            content: "< ";
+            color: var(--accent-color);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .code-section .section-title::after {
+            content: " />";
+            color: var(--accent-color);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* Mempertahankan style asli untuk code-section */
+        .code-section {
+            background: var(--card-background);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 50px;
+            margin-bottom: 80px; /* Memberi ruang untuk bottom nav di mobile */
+            border: 1px solid var(--border-color);
+            transition: background 0.3s, border 0.3s;
+        }
+
+        /* Mobile optimasi untuk code section */
+        @media (max-width: 767px) {
+            .code-section {
+                padding: 20px 15px;
+                background: var(--card-background);
+                border: 1px solid var(--border-color);
+                box-shadow: 0 10px 30px var(--shadow-color);
+            }
+            
+            .code-section .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Style untuk code snippet tetap dipertahankan */
+        .code-snippet {
+            font-family: 'Roboto Mono', monospace;
+            background: var(--code-bg);
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: var(--accent-color);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Tambahan style baru untuk code snippet - lebih spesifik */
+        .code-section .code-snippet {
+            background: var(--code-bg);
+            padding: 25px;
+            border-left: 3px solid var(--accent-color);
+            line-height: 1.7;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        /* Mobile optimasi untuk code snippet */
+        @media (max-width: 767px) {
+            .code-section .code-snippet {
+                padding: 15px;
+                font-size: 0.8rem;
+                line-height: 1.5;
+                background: var(--code-bg);
+                border-left: 2px solid var(--accent-color);
+            }
+            
+            .code-section .code-snippet pre {
+                white-space: pre-wrap;
+            }
+        }
+
+        .team-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 80px; /* Memberi ruang untuk bottom nav di mobile */
+        }
+
+        .team-member {
+            text-align: center;
+            max-width: 250px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--text-color);
+            box-shadow: 0 0 15px var(--shadow-color);
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        
+        /* Mobile optimasi untuk team section */
+        @media (max-width: 767px) {
+            .team-section {
+                gap: 40px;
+            }
+            
+            .team-member {
+                background: var(--card-background);
+                padding: 20px;
+                border-radius: 15px;
+                border: 1px solid var(--border-color);
+                box-shadow: 0 10px 20px var(--shadow-color);
+                width: 100%;
+                max-width: 100%;
+                display: flex;
+                align-items: center;
+                text-align: left;
+            }
+            
+            .team-member img {
+                width: 80px;
+                height: 80px;
+                margin-right: 15px;
+                border: 2px solid var(--accent-color);
+            }
+            
+            .team-member-info {
+                flex: 1;
+            }
+            
+            .team-member h3 {
+                margin: 0;
+                font-size: 1.2rem;
+                color: var(--accent-color);
+            }
+            
+            .team-member p {
+                margin: 5px 0 0;
+                font-size: 0.9rem;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0 80px; /* Padding bottom untuk memberi ruang pada bottom nav */
+            background: var(--footer-bg);
+            margin-top: 50px;
+            transition: background 0.3s;
+        }
+
+        /* Lottie animation positioning */
+        .lottie-animation-container {
+            position: absolute;
+            top: 140px; /* Diubah untuk posisi lebih baik di mobile */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            pointer-events: none;
+            touch-action: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Desktop positioning for Lottie */
+        @media (min-width: 768px) {
+            .lottie-animation-container {
+                top: 520px;
+                left: 80px;
+                right: auto;
+                transform: none;
+                z-index: 3;
+            }
+        }
+
+        /* Tombol back-to-top untuk mobile */
+        .back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 80px; /* Posisi di atas bottom nav */
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-gradient);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            z-index: 99;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s, background 0.3s;
+        }
+        
+        .back-to-top.visible {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .back-to-top:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="coin-animation" id="coinAnimation"></div>
+    
+    <!-- Lottie Animation -->
+    <div class="lottie-animation-container">
+        <dotlottie-player src="https://lottie.host/38128f70-0a65-41a7-b998-3e35e57c895e/WtnHEI507S.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
+    </div>
+    
+    <!-- Theme Switcher Button -->
+    <button class="theme-switch" id="themeSwitch" aria-label="Ganti tema"></button>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <div class="container">
+        <header class="header">
+            <div class="logo">Krisubakti</div>
+            <nav class="nav">
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contributions">Contributions</a>
+                <a href="#team">Team</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Crypto Innovator</h1>
+                <p>Driving the Future of Decentralized Technology with Cutting-Edge Solutions. Passionate About Blockchain Innovation, Crypto Research, and Building Sustainable Digital Ecosystems for a More Transparent and Inclusive Financial World.</p>
+                
+                <div class="social-links">
+                    <a href="https://x.com/mas_krisz?t=Kb_IiXo4_uAHSt8lZUtqlw&s=09" target="_blank" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://t.me/krisubakti" target="_blank" title="Telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="https://github.com/krisubakti" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://github.com/krisubakti" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>Crypto Expertise</h3>
+                    <p>Advanced blockchain strategy and cryptocurrency analysis with deep market insights.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Blockchain Development</h3>
+                    <p>Innovative smart contract development and decentralized application architecture.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Research</h3>
+                    <p>Empowering data-driven crypto investment strategies through in-depth market analysis, blockchain research, and cutting-edge financial modeling. Leveraging advanced analytics to identify trends, optimize portfolio performance, and navigate the evolving digital asset landscape with confidence.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">Blockchain Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>DeFi Platform</h3>
+                    <p>Developed a decentralized finance platform with advanced yield farming mechanisms.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>Crypto Wallet</h3>
+                    <p>Created a secure multi-cryptocurrency wallet with advanced security features.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>DEX Protocol</h3>
+                    <p>Designed a decentralized exchange protocol with low-slippage trading algorithms.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contributions">
+            <h2 class="section-title">Open Source Contributions</h2>
+            <div class="contributions-grid">
+                <div class="contribution-card">
+                    <div class="contribution-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>Full-Stack Deployment Specialist</h3>
+                    <p>Experienced in deploying and managing applications using JavaScript, Python, and other technologies across various environments, including cloud, VPS, and local servers.</p>
+                </div>
+                <div class="contribution-card">
+                    <div class="contribution-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3>Web3 Framework</h3>
+                    <p>Major contributions to popular Web3 development frameworks.</p>
+                </div>
+                <div class="contribution-card">
+                    <div class="contribution-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security Audits</h3>
+                    <p>Conducted comprehensive security audits for blockchain protocols.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="team-section">
+            <div class="team-member">
+                <img src="https://imgur.com/VixNIsO.jpg" alt="Blockchain Dev">
+                <h3>Blockchain Dev</h3>
+                <p>Smart Contract Specialist</p>
+            </div>
+            <div class="team-member">
+                <img src="https://imgur.com/FIv2dZo.jpg" alt="Research Lead">
+                <h3>Research Lead</h3>
+                <p>Market Analysis Expert</p>
+            </div>
+            <div class="team-member">
+                <img src="https://imgur.com/4Uokb8X.jpg" alt="Security Analyst">
+                <h3>Security Analyst</h3>
+                <p>Cybersecurity Specialist</p>
+            </div>
+        </section>
+
+        <section class="code-section">
+            <h2 class="section-title">Code Snippet</h2>
+            <div class="code-snippet">
+                <pre><code>
+                    // SPDX-License-Identifier: MIT
+                    pragma solidity ^0.8.20;
+                    
+                    // Secure ERC-20 Token Transfer Smart Contract
+                    contract SecureToken {
+                        string public name = "SecureToken";
+                        string public symbol = "SCT";
+                        uint8 public decimals = 18;
+                        uint256 public totalSupply;
+                    
+                        mapping(address => uint256) public balanceOf;
+                        mapping(address => mapping(address => uint256)) public allowance;
+                    
+                        event Transfer(address indexed from, address indexed to, uint256 value);
+                        event Approval(address indexed owner, address indexed spender, uint256 value);
+                    
+                        constructor(uint256 initialSupply) {
+                            totalSupply = initialSupply * (10 ** uint256(decimals));
+                            balanceOf[msg.sender] = totalSupply; // Assign all tokens to contract creator
+                        }
+                    
+                        function transfer(address recipient, uint256 amount) public returns (bool) {
+                            require(balanceOf[msg.sender] >= amount, "Insufficient balance");
+                            require(recipient != address(0), "Invalid recipient");
+                    
+                            _transfer(msg.sender, recipient, amount);
+                            return true;
+                        }
+                    
+                        function _transfer(address sender, address recipient, uint256 amount) internal {
+                            balanceOf[sender] -= amount;
+                            balanceOf[recipient] += amount;
+                            emit Transfer(sender, recipient, amount);
+                        }
+                    
+                        function approve(address spender, uint256 amount) public returns (bool) {
+                            allowance[msg.sender][spender] = amount;
+                            emit Approval(msg.sender, spender, amount);
+                            return true;
+                        }
+                    
+                        function transferFrom(address sender, address recipient, uint256 amount) public returns (bool) {
+                            require(balanceOf[sender] >= amount, "Insufficient balance");
+                            require(allowance[sender][msg.sender] >= amount, "Allowance exceeded");
+                            require(recipient != address(0), "Invalid recipient");
+                    
+                            allowance[sender][msg.sender] -= amount;
+                            _transfer(sender, recipient, amount);
+                            return true;
+                        }
+                    }
+                    
+                </code></pre>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Krisubakti. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Fungsi untuk mencegah zoom dan gerakan yang tidak diinginkan
+        function preventUnwantedBehavior() {
+            // Mencegah zoom dengan pinch
+            document.addEventListener('touchstart', function(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            // Mencegah zoom dengan ctrl+wheel
+            document.addEventListener('wheel', function(e) {
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            // Mencegah drag yang tidak diinginkan
+            document.addEventListener('touchmove', function(e) {
+                // Hanya mencegah gerakan multi-touch
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            // Mencegah zoom double-tap pada mobile
+            let lastTapTime = 0;
+            document.addEventListener('touchend', function(e) {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTapTime;
+                if (tapLength < 300 && tapLength > 0) {
+                    e.preventDefault();
+                }
+                lastTapTime = currentTime;
+            }, { passive: false });
+            
+            // Memperbaiki viewport
+            const viewport = document.querySelector('meta[name="viewport"]');
+            if (viewport) {
+                viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+            }
+        }
+
+        function createAdvancedCoinAnimation() {
+            console.log('Memulai animasi koin...');
+            const coinAnimation = document.getElementById('coinAnimation');
+            
+            if (!coinAnimation) {
+                console.error('Elemen coinAnimation tidak ditemukan!');
+                return;
+            }
+
+            // Konfigurasi token dengan gambar
+            const tokenConfig = [
+                { imageUrl: 'https://pbs.twimg.com/profile_images/1868570908383940608/Wvp_mV0k_400x400.jpg' },
+                { imageUrl: 'https://pbs.twimg.com/profile_images/1744477796301496320/z7AIB7_W_400x400.jpg' },
+                { imageUrl: 'https://pbs.twimg.com/profile_images/1651228955301629963/IfYACWA__400x400.jpg' },
+                { imageUrl: 'https://pbs.twimg.com/profile_images/1854306364362784777/n_7fkh7I_400x400.jpg' },
+                { imageUrl: 'https://pbs.twimg.com/profile_images/1790088687646289920/Q7oVa2cC_400x400.png' }
+    ];
+
+    // Area untuk animasi
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Bersihkan animasi yang sudah ada
+    coinAnimation.innerHTML = '';
+
+    // Buat beberapa koin
+    for (let i = 0; i < 20; i++) {
+        const coin = document.createElement('div');
+        coin.classList.add('crypto-coin');
+        
+        // Pilih token acak
+        const randomToken = tokenConfig[Math.floor(Math.random() * tokenConfig.length)];
+        
+        // Hapus background gradient
+        coin.style.background = 'none';
+        
+        // Buat elemen gambar
+        const img = document.createElement('img');
+        img.src = randomToken.imageUrl;
+        img.alt = 'token';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.borderRadius = '50%';
+        img.style.objectFit = 'cover';
+        img.style.boxShadow = '0 0 20px rgba(0,255,179,0.5)'; // Tambahkan shadow pada gambar
+        
+        // Tambahkan gambar ke dalam koin
+        coin.appendChild(img);
+        
+        // TIDAK menambahkan label untuk menghilangkan garis di bawah token
+
+        // Atur posisi acak di dalam viewport
+        coin.style.left = `${Math.random() * viewportWidth}px`;
+        coin.style.top = `${Math.random() * viewportHeight}px`;
+
+        // Variasi ukuran koin
+        const size = 30 + Math.random() * 50;
+        coin.style.width = `${size}px`;
+        coin.style.height = `${size}px`;
+
+        // Animasi tambahan
+        coin.style.animationDuration = `${5 + Math.random() * 5}s`;
+        coin.style.animationDelay = `${Math.random() * 3}s`;
+        
+        // Mencegah interaksi pengguna dengan koin
+        coin.style.pointerEvents = 'none';
+        
+        coinAnimation.appendChild(coin);
+    }
+
+    console.log(`Membuat ${coinAnimation.children.length} koin`);
+}
+
+        // Pastikan DOM sudah dimuat sepenuhnya
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hapus gambar Pepe jika ada
+            const pepeImages = document.querySelectorAll('img');
+            pepeImages.forEach(img => {
+                if (img.alt === 'pepe' || (img.src && img.src.includes('pepe'))) {
+                    img.remove();
+                }
+            });
+            
+            // Jalankan animasi koin dan cegah perilaku yang tidak diinginkan
+            setTimeout(function() {
+                createAdvancedCoinAnimation();
+                preventUnwantedBehavior();
+            }, 100);
+        });
+
+        // Tambahan event listener untuk memastikan
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                createAdvancedCoinAnimation();
+                preventUnwantedBehavior();
+                
+                // Reset animasi saat ukuran window berubah
+                window.addEventListener('resize', function() {
+                    setTimeout(createAdvancedCoinAnimation, 300);
+                });
+            }, 500);
+            
+            // Mencoba menstabilkan halaman dengan menghapus listener default
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
+            document.addEventListener('gesturechange', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
+            document.addEventListener('gestureend', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+        });
+    </script>
+</body>
+</html>
